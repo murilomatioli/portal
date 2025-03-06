@@ -50,7 +50,44 @@ export async function createUser(req: Request, res: Response): Promise<void> {
 
         res.status(201).json({ message: 'Usuário criado com sucesso!' });
     } catch (error) {
-        console.error('Erro ao criar usuário:', error); // Log detalhado
+        console.error('Erro ao criar usuário:', error);
         res.status(500).json({ error: 'Erro interno do servidor.' });
+    }
+}
+
+export async function loginUser(req: Request, res: Response): Promise<void> {
+    const schema = Joi.object({
+        //validacao dos dados
+        password: Joi.string().required(),
+        email: Joi.string().email().required(),
+    });
+
+    try {
+        const { email, password } = req.body;
+        const { error } = schema.validate({ email, password });
+
+        if (error) {
+            console.error('Erro de validação', error);
+            res.status(400).json({ error: error.details[0].message });
+        }
+
+        const findEmail = await User.findOne({ email });
+
+        if (findEmail) {
+            if (findEmail.password === password) {
+                res.status(200).json({
+                    message: `Logado com sucesso como ${findEmail.name}!`,
+                });
+                return;
+            }
+            res.status(401).json({ message: 'Usuário ou senha incorretos' });
+            return;
+        } else {
+            console.error('Não há ninguém com esse email.');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro interno do servidor' });
+        return;
     }
 }
