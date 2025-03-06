@@ -2,6 +2,9 @@ import { Request, Response } from 'express';
 import { Types } from 'mongoose';
 import User from './model';
 import Joi from 'joi';
+import { hashPassword } from '../../config/bcrypt/bcrypt';
+
+import bcrypt, { compareSync } from 'bcrypt';
 
 export async function getUser(req: Request, res: Response): Promise<void> {
     const id = req.params.id;
@@ -33,6 +36,7 @@ export async function createUser(req: Request, res: Response): Promise<void> {
 
     try {
         const { name, password, email } = req.body;
+
         const { error } = schema.validate({ name, password, email });
         if (error) {
             console.log('Erro de validação', error);
@@ -40,9 +44,11 @@ export async function createUser(req: Request, res: Response): Promise<void> {
             return;
         }
 
+        const hash = await hashPassword(password);
+
         const user = new User({
             name,
-            password,
+            password: hash,
             email,
         });
 
@@ -57,8 +63,7 @@ export async function createUser(req: Request, res: Response): Promise<void> {
 
 export async function loginUser(req: Request, res: Response): Promise<void> {
     const schema = Joi.object({
-        //validacao dos dados
-        password: Joi.string().required(),
+        password: Joi.string().required(), //validacao dos dados
         email: Joi.string().email().required(),
     });
 
@@ -74,7 +79,8 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
         const findEmail = await User.findOne({ email });
 
         if (findEmail) {
-            if (findEmail.password === password) {
+            const matchPassword = compareSync(password, findEmail.password); //verificação do bcrypt
+            if (matchPassword) {
                 res.status(200).json({
                     message: `Logado com sucesso como ${findEmail.name}!`,
                 });
