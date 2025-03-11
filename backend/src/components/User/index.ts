@@ -4,6 +4,7 @@ import User from './model';
 import Joi from 'joi';
 import { hashPassword } from '../../config/bcrypt/bcrypt';
 import { compareSync } from 'bcrypt';
+import { generateToken } from '../Auth/AuthService';
 
 export async function getUser(req: Request, res: Response): Promise<void> {
     const id = req.params.id;
@@ -12,7 +13,6 @@ export async function getUser(req: Request, res: Response): Promise<void> {
             res.status(400).json({ error: 'ID inválido' });
             return;
         }
-
         const user = await User.findById(id); // Adicionado await
         if (!user) {
             res.status(404).json({ error: 'Usuário não encontrado' });
@@ -20,9 +20,11 @@ export async function getUser(req: Request, res: Response): Promise<void> {
         }
 
         res.status(200).json(user); // Retorna o usuário encontrado
+        return;
     } catch (error) {
         console.error(`Erro ao buscar o usuário: ${error}`);
         res.status(500).json({ error: 'Erro interno do servidor' });
+        return;
     }
 }
 
@@ -81,20 +83,28 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
         }
 
         const findEmail = await User.findOne({ email });
-
-        if (findEmail) {
-            const matchPassword = compareSync(password, findEmail.password); //verificação do bcrypt
-            if (matchPassword) {
-                res.status(200).json({
-                    message: `Logado com sucesso como ${findEmail.name}!`,
-                });
-                return;
-            }
-            res.status(401).json({ message: 'Usuário ou senha incorretos' });
+        if (!findEmail) {
+            console.error('Não há ninguém com este email.');
+            res.status(400).json({
+                message: 'Não há ninguém cadastrado com esse email',
+            });
             return;
-        } else {
-            console.error('Não há ninguém com esse email.');
         }
+        const matchPassword = compareSync(password, findEmail.password); //verificação do bcrypt
+        if (matchPassword) {
+            const token = generateToken(
+                (findEmail._id as Types.ObjectId).toString()
+            );
+
+            res.status(200).json({
+                message: `Logado com sucesso como ${findEmail.name}!`,
+                token,
+            });
+            return;
+        }
+
+        res.status(401).json({ message: 'Usuário ou senha incorretos' });
+        return;
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erro interno do servidor' });
