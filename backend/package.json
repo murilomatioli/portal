@@ -5,8 +5,10 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "joi": "^17.13.3",
+    "mask-validation-br": "^2.2.5",
     "mongodb": "^6.13.1",
-    "mongoose": "^8.11.0"
+    "mongoose": "^8.11.0",
+    "telefone": "^1.2.5"
   },
   "scripts": {
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/config/server/server.ts",

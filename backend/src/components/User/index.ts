@@ -3,8 +3,7 @@ import { Types } from 'mongoose';
 import User from './model';
 import Joi from 'joi';
 import { hashPassword } from '../../config/bcrypt/bcrypt';
-
-import bcrypt, { compareSync } from 'bcrypt';
+import { compareSync } from 'bcrypt';
 
 export async function getUser(req: Request, res: Response): Promise<void> {
     const id = req.params.id;
@@ -29,15 +28,20 @@ export async function getUser(req: Request, res: Response): Promise<void> {
 
 export async function createUser(req: Request, res: Response): Promise<void> {
     const schema = Joi.object({
-        name: Joi.string().required(),
-        password: Joi.string().required(),
+        name: Joi.string().alphanum().min(4).required(),
+        password: Joi.string().min(8).required(),
         email: Joi.string().email().required(),
+        profile: Joi.string().required(),
     });
 
     try {
-        const { name, password, email } = req.body;
+        let { name, password, email, profile } = req.body;
 
-        const { error } = schema.validate({ name, password, email });
+        if (!profile) {
+            profile = 'user';
+        }
+        const { error } = schema.validate({ name, password, email, profile });
+
         if (error) {
             console.log('Erro de validação', error);
             res.status(400).json({ error: error.details[0].message });
