@@ -6,6 +6,7 @@ import { hashPassword } from '../../config/bcrypt/bcrypt';
 import { compareSync } from 'bcrypt';
 import { generateToken } from '../Auth/AuthService';
 
+
 export async function getUser(req: Request, res: Response): Promise<void> {
     const id = req.params.id;
     try {

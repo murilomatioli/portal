@@ -9,7 +9,7 @@ router.post('/login', UserComponent.loginUser);
 
 // @ts-ignore
 router.get('/user/:id', authenticateJWT, UserComponent.getUser);
-
+// @ts-ignore
 router.put('/user/:id', authenticateJWT, UserComponent.putUser);
 
 export default router;
