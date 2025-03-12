@@ -15,7 +15,7 @@ interface IUser extends Document {
 const UserSchema = new Schema({
     name: { type: String, required: true },
     password: { type: String, required: true },
-    email: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     profile: {
         type: String,
         enum: Object.values(Profiles),

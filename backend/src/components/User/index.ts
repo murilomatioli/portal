@@ -14,13 +14,13 @@ export async function getUser(req: Request, res: Response): Promise<void> {
             res.status(400).json({ error: 'ID inválido' });
             return;
         }
-        const user = await User.findById(id); // Adicionado await
+        const user = await User.findById(id);
         if (!user) {
             res.status(404).json({ error: 'Usuário não encontrado' });
             return;
         }
 
-        res.status(200).json(user); // Retorna o usuário encontrado
+        res.status(200).json(user);
         return;
     } catch (error) {
         console.error(`Erro ao buscar o usuário: ${error}`);
@@ -39,6 +39,15 @@ export async function createUser(req: Request, res: Response): Promise<void> {
 
     try {
         let { name, password, email, profile } = req.body;
+
+        const checkEmailExist = await User.findOne({ email });
+
+        if (checkEmailExist) {
+            res.status(409).json({
+                message: 'Já existe alguém com esse email.',
+            });
+            return;
+        }
 
         if (!profile) {
             profile = 'user';
@@ -112,29 +121,55 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
         return;
     }
 }
+export async function deleteUser(req: Request, res: Response): Promise<void> {
+    const id = req.params.id;
+    try {
+        if (!Types.ObjectId.isValid(id)) {
+            res.status(400).json({ error: 'ID inválido' });
+            return;
+        }
+        const user = await User.findByIdAndDelete(id);
+        if (!user) {
+            res.status(404).json({
+                error: 'Usuário não encontrado para ser deletado',
+            });
+            return;
+        }
+
+        res.status(200).json({
+            message: `Usuário ${user.name} deletado com sucesso!`,
+        });
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+}
 
 export async function putUser(req: Request, res: Response): Promise<void> {
     const id = req.params.id;
     const updates = req.body;
 
-    if (!Types.ObjectId.isValid(id)){
-        res.status(400).json({error: 'ID inválido.'});
+    if (!Types.ObjectId.isValid(id)) {
+        res.status(400).json({ error: 'ID inválido.' });
         return;
     }
+    updates.password = await hashPassword(updates.password);
 
     try {
         const user = await User.findByIdAndUpdate(id, updates, {
             new: true, //usuário atualizado
-            runValidators: true //verifica o schema antes de atualizar
+            runValidators: true, //verifica o schema antes de atualizar
         });
 
-        if(!user){
-            res.status(404).json({error: 'Usuário não encontrado.'});
+        if (!user) {
+            res.status(404).json({ error: 'Usuário não encontrado.' });
             return;
         }
 
-        res.status(200).json({message: 'Usuário atualizado com sucesso ', user});
-    } catch (error){
+        res.status(200).json({
+            message: 'Usuário atualizado com sucesso ',
+            user,
+        });
+    } catch (error) {
         console.error('Erro ao atualizar usuário:', error);
         res.status(500).json({ error: 'Erro interno do servidor.' });
     }
