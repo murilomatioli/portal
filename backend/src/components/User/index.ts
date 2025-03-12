@@ -111,3 +111,30 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
         return;
     }
 }
+
+export async function putUser(req: Request, res: Response): Promise<void> {
+    const id = req.params.id;
+    const updates = req.body;
+
+    if (!Types.ObjectId.isValid(id)){
+        res.status(400).json({error: 'ID inválido.'});
+        return;
+    }
+
+    try {
+        const user = await User.findByIdAndUpdate(id, updates, {
+            new: true, //usuário atualizado
+            runValidators: true //verifica o schema antes de atualizar
+        });
+
+        if(!user){
+            res.status(404).json({error: 'Usuário não encontrado.'});
+            return;
+        }
+
+        res.status(200).json({message: 'Usuário atualizado com sucesso ', user});
+    } catch (error){
+        console.error('Erro ao atualizar usuário:', error);
+        res.status(500).json({ error: 'Erro interno do servidor.' });
+    }
+}

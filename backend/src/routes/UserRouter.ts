@@ -10,4 +10,6 @@ router.post('/login', UserComponent.loginUser);
 // @ts-ignore
 router.get('/user/:id', authenticateJWT, UserComponent.getUser);
 
+router.put('/user/:id', authenticateJWT, UserComponent.putUser);
+
 export default router;
