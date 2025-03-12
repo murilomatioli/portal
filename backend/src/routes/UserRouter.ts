@@ -3,11 +3,14 @@ import { UserComponent } from '../components/';
 import { authenticateJWT } from '../components/Auth/AuthMiddleware';
 
 const router: Router = Router();
-
+//post
 router.post('/createUser', UserComponent.createUser);
 router.post('/login', UserComponent.loginUser);
 
-// @ts-ignore
+//delete
+router.delete('/deleteUser/:id', authenticateJWT, UserComponent.deleteUser);
+
+//get
 router.get('/user/:id', authenticateJWT, UserComponent.getUser);
 
 export default router;

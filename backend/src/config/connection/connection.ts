@@ -13,9 +13,9 @@ export default async function connectDB() {
             socketTimeoutMS: 20000,
         });
 
-        console.log('✅ Conexão com MongoDB (Mongoose) estabelecida!');
+        console.log('✅ conexão estabelecida!');
     } catch (error) {
-        console.error('❌ Erro ao conectar ao MongoDB:', error);
+        console.error('❌ erro ao conectar o mongodb:', error);
         process.exit(1);
     }
 }
