@@ -5,10 +5,11 @@ dotenv.config();
 
 interface JwtPayload {
     userId: string;
+    role: string;
 }
 
-export const generateToken = (userId: string): string => {
-    const payload: JwtPayload = { userId };
+export const generateToken = (userId: string, role: string): string => {
+    const payload: JwtPayload = { userId, role };
 
     const secretKey = process.env.JWT_SECRET;
     if (!secretKey) {
