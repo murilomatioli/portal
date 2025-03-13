@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { UserComponent } from '../components/';
-import { authenticateJWT } from '../components/Auth/AuthMiddleware';
+import { authenticateJWT } from '../config/Auth/AuthMiddleware';
 
 const router: Router = Router();
 //post

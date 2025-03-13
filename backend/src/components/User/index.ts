@@ -4,10 +4,11 @@ import User from './model';
 import Joi from 'joi';
 import { hashPassword } from '../../config/bcrypt/bcrypt';
 import { compareSync } from 'bcrypt';
-import { generateToken } from '../Auth/AuthService';
+import { generateToken } from '../../config/Auth/AuthService';
 
 export async function getUser(req: Request, res: Response): Promise<void> {
     const id = req.params.id;
+
     try {
         if (!Types.ObjectId.isValid(id)) {
             res.status(400).json({ error: 'ID inválido' });
@@ -102,7 +103,8 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
         const matchPassword = compareSync(password, findEmail.password); //verificação do bcrypt
         if (matchPassword) {
             const token = generateToken(
-                (findEmail._id as Types.ObjectId).toString()
+                (findEmail._id as Types.ObjectId).toString(),
+                findEmail.profile
             );
 
             res.status(200).json({
