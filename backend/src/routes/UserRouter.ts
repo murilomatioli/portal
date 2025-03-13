@@ -12,7 +12,7 @@ router.delete('/deleteUser/:id', authenticateJWT, UserComponent.deleteUser);
 
 //get
 router.get('/user/:id', authenticateJWT, UserComponent.getUser);
-
+router.get('/getAll', authenticateJWT, UserComponent.getAllUsers);
 router.put('/user/:id', authenticateJWT, UserComponent.putUser);
 
 export default router;
