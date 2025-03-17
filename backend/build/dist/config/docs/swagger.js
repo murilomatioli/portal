@@ -32,21 +32,27 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importStar(require("mongoose"));
-var Profiles;
-(function (Profiles) {
-    Profiles["ADMIN"] = "admin";
-    Profiles["USER"] = "user";
-})(Profiles || (Profiles = {}));
-const UserSchema = new mongoose_1.Schema({
-    name: { type: String, required: true },
-    password: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    profile: {
-        type: String,
-        enum: Object.values(Profiles),
-        default: Profiles.USER,
+const swagger_autogen_1 = __importDefault(require("swagger-autogen"));
+const outputFile = './swagger.json';
+const endpointsFiles = ['./src/routes/index.ts'];
+const doc = {
+    info: {
+        title: 'Portal Ilha Conectada',
+        version: '1.0.0',
+        description: 'Documentação da API usando Swagger',
     },
+    servers: [
+        {
+            url: 'http://localhost:3000',
+            description: 'Servidor local',
+        },
+    ],
+};
+(0, swagger_autogen_1.default)()(outputFile, endpointsFiles, doc).then(() => {
+    console.log('Swagger docs gerado com sucesso!');
+    Promise.resolve().then(() => __importStar(require('../server/server.js')));
 });
-exports.default = mongoose_1.default.model('User', UserSchema);

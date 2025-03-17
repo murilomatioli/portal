@@ -1,7 +1,9 @@
+import swaggerDocument from '../docs/swagger.json';
 import express from 'express';
 import router from '../../routes';
 import connectToDatabase from '../connection/connection';
 import * as dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express';
 
 dotenv.config();
 
@@ -11,13 +13,12 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/api', router);
-
+app.use(router);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 async function startServer() {
     try {
-        await connectToDatabase(); // Chama a função de conexão
-
-        app.use('/api', router); // Use suas rotas
+        await connectToDatabase();
+        app.use('/api', router);
 
         app.listen(PORT, () => {
             console.log(process.env.MONGO_HOST);

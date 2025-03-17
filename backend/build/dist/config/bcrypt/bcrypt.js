@@ -12,24 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = connectDB;
-const mongoose_1 = __importDefault(require("mongoose"));
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-const mongoUri = `${process.env.MONGO_HOST}/${process.env.MONGO_DATABASE}`;
-function connectDB() {
+exports.hashPassword = hashPassword;
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const saltRounds = 10;
+function hashPassword(password) {
     return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield mongoose_1.default.connect(mongoUri, {
-                connectTimeoutMS: 10000,
-                serverSelectionTimeoutMS: 10000,
-                socketTimeoutMS: 20000,
-            });
-            console.log('✅ conexão estabelecida!');
-        }
-        catch (error) {
-            console.error('❌ erro ao conectar o mongodb:', error);
-            process.exit(1);
-        }
+        const hashedPassword = yield bcrypt_1.default.hash(password, saltRounds);
+        return hashedPassword;
     });
 }

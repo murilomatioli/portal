@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt, { decode } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -10,9 +10,9 @@ export const authenticateJWT = (
     next: NextFunction
 ) => {
     try {
-        const token = req.headers['x-access-token'] as String;
+        const token = req.headers['x-access-token'] as string;
 
-        if (!token || typeof token !== 'string') {
+        if (!token) {
             return res
                 .status(403)
                 .json({ message: 'Acesso negado. Token não fornecido.' });
