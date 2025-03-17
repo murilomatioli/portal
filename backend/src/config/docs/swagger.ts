@@ -1,7 +1,7 @@
 import swaggerAutogen from 'swagger-autogen';
 
-const outputFile = './swagger.json'; // Arquivo gerado
-const endpointsFiles = ['./src/routes/index.ts']; // Arquivo principal de rotas
+const outputFile = './swagger.json';
+const endpointsFiles = ['./src/routes/index.ts'];
 
 const doc = {
     info: {
@@ -11,7 +11,7 @@ const doc = {
     },
     servers: [
         {
-            url: 'http://localhost:3000',
+            url: 'http://localhost:3000/',
             description: 'Servidor local',
         },
     ],
