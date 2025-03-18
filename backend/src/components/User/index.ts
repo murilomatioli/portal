@@ -29,7 +29,21 @@ export async function getUser(req: Request, res: Response): Promise<void> {
         return;
     }
 }
+export async function getAllUsers(req: Request, res: Response): Promise<void> {
+    try {
+        const users = await User.find();
 
+        if (!users) {
+            res.status(404).json({ message: 'Não há usuários cadastrados' });
+            return;
+        }
+        res.status(200).json(users);
+        return;
+    } catch (error) {
+        res.status(500).json({ error });
+        return;
+    }
+}
 export async function createUser(req: Request, res: Response): Promise<void> {
     const schema = Joi.object({
         name: Joi.string().alphanum().min(4).required(),

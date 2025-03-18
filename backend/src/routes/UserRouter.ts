@@ -18,4 +18,7 @@ router.get('/user/:id', authenticateJWT, UserComponent.getUser);
 // @ts-ignore
 router.put('/user/:id', authenticateJWT, UserComponent.putUser);
 
+//@ts-ignore
+router.get('/getAll', authenticateJWT, UserComponent.getAllUsers);
+
 export default router;
