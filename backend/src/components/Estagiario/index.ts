@@ -1,0 +1,84 @@
+import { Request, Response } from 'express';
+import Estagiario from './model';
+import Joi from 'joi';
+
+export async function cadEstagiario(
+    req: Request,
+    res: Response
+): Promise<void> {
+    const schema = Joi.object({
+        name: Joi.string().alphanum().min(4).required(),
+        email: Joi.string().email().required(),
+        role: Joi.string().min(4).required(),
+        company: Joi.string().min(2).required(),
+        techStack: Joi.array().items(Joi.string()).default([]),
+        bio: Joi.string().optional().default('Sem descrição disponível.'),
+        birth: Joi.date().optional(),
+        startDate: Joi.date().required(),
+        endDate: Joi.date().optional(),
+        social: Joi.object({
+            linkedin: Joi.string().uri().optional(),
+            github: Joi.string().uri().optional(),
+            instagram: Joi.string().uri().optional(),
+        }),
+    });
+
+    try {
+        const {
+            name,
+            email,
+            role,
+            company,
+            techStack,
+            bio,
+            birth,
+            startDate,
+            endDate,
+            social,
+        } = req.body;
+
+        const { error, value } = schema.validate(req.body);
+
+        const findEmail = await Estagiario.findOne({ email });
+        if (findEmail) {
+            res.status(400).json({ message: 'Email duplicado!' });
+            return;
+        }
+
+        if (error) {
+            console.error('Erro de validação', error);
+            res.status(400).json({ error: error.details[0].message });
+            return;
+        }
+
+        const validated = value;
+
+        const newEstagiario = new Estagiario(validated);
+        await newEstagiario.save();
+
+        res.status(201).json({
+            message: `Estagiário ${name} cadastrado com sucesso`,
+        });
+        return;
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+}
+export async function getEstagiarios(
+    req: Request,
+    res: Response
+): Promise<void> {
+    try {
+        const estagiarios = await Estagiario.find();
+        if (!estagiarios) {
+            res.status(404).json({
+                message: 'Não há estagiários cadastrados.',
+            });
+            return;
+        }
+        res.status(201).json({ estagiarios });
+        return;
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+}
