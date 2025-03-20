@@ -19,6 +19,10 @@
   "paths": {
     "/users/createUser": {
       "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Cria um novo usuário",
         "description": "",
         "parameters": [
           {
@@ -61,6 +65,10 @@
     },
     "/users/login": {
       "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Realiza autenticação e retorna um token jwt",
         "description": "",
         "parameters": [
           {
@@ -97,6 +105,10 @@
     },
     "/users/deleteUser/{id}": {
       "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Deleta um usuário pelo seu id",
         "description": "",
         "parameters": [
           {
@@ -135,6 +147,10 @@
     },
     "/users/user/{id}": {
       "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Busca e exibe um usuário pelo seu id",
         "description": "",
         "parameters": [
           {
@@ -171,6 +187,10 @@
         }
       },
       "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Modifica os dados de um usuário pelo seu id",
         "description": "",
         "parameters": [
           {
@@ -221,6 +241,10 @@
     },
     "/users/getAll": {
       "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Busca e exibe todos os usuários",
         "description": "",
         "parameters": [
           {
@@ -250,6 +274,9 @@
     },
     "/estagiarios/cadEstagiario": {
       "post": {
+        "tags": [
+          "Estagiários"
+        ],
         "description": "",
         "parameters": [
           {
@@ -307,6 +334,9 @@
     },
     "/estagiarios/getEstagiario": {
       "get": {
+        "tags": [
+          "Estagiários"
+        ],
         "description": "",
         "responses": {
           "201": {

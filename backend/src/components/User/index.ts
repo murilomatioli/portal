@@ -6,10 +6,13 @@ import { hashPassword } from '../../config/bcrypt/bcrypt';
 import { compareSync } from 'bcrypt';
 import { generateToken } from '../../config/Auth/AuthService';
 
-
 export async function getUser(req: Request, res: Response): Promise<void> {
     const id = req.params.id;
+    /*
+        #swagger.tags = ['Users']
+        #swagger.summary = 'Busca e exibe um usuário pelo seu id'
 
+    */
     try {
         if (!Types.ObjectId.isValid(id)) {
             res.status(400).json({ error: 'ID inválido' });
@@ -32,7 +35,11 @@ export async function getUser(req: Request, res: Response): Promise<void> {
 export async function getAllUsers(req: Request, res: Response): Promise<void> {
     try {
         const users = await User.find();
+        /*
+        #swagger.tags = ['Users']
+        #swagger.summary = 'Busca e exibe todos os usuários'
 
+    */
         if (!users) {
             res.status(404).json({ message: 'Não há usuários cadastrados' });
             return;
@@ -51,7 +58,10 @@ export async function createUser(req: Request, res: Response): Promise<void> {
         email: Joi.string().email().required(),
         profile: Joi.string().required(),
     });
-
+    /*
+        #swagger.tags = ['Users']
+        #swagger.summary = 'Cria um novo usuário'
+    */
     try {
         let { name, password, email, profile } = req.body;
 
@@ -97,7 +107,10 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
         password: Joi.string().required(), //validacao dos dados
         email: Joi.string().email().required(),
     });
-
+    /*
+        #swagger.tags = ['Users']
+        #swagger.summary = 'Realiza autenticação e retorna um token jwt'
+    */
     try {
         const { email, password } = req.body;
         const { error } = schema.validate({ email, password });
@@ -139,6 +152,10 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
 }
 export async function deleteUser(req: Request, res: Response): Promise<void> {
     const id = req.params.id;
+    /*
+        #swagger.tags = ['Users']
+        #swagger.summary = 'Deleta um usuário pelo seu id'
+    */
     try {
         if (!Types.ObjectId.isValid(id)) {
             res.status(400).json({ error: 'ID inválido' });
@@ -163,7 +180,11 @@ export async function deleteUser(req: Request, res: Response): Promise<void> {
 export async function putUser(req: Request, res: Response): Promise<void> {
     const id = req.params.id;
     const updates = req.body;
+    /*
+        #swagger.tags = ['Users']
+        #swagger.summary = 'Modifica os dados de um usuário pelo seu id'
 
+    */
     if (!Types.ObjectId.isValid(id)) {
         res.status(400).json({ error: 'ID inválido.' });
         return;
