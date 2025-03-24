@@ -7,6 +7,9 @@ import { compareSync } from 'bcrypt';
 import { generateToken } from '../../config/Auth/AuthService';
 
 export async function getUser(req: Request, res: Response): Promise<void> {
+    // #swagger.tags = ['Users']
+    // #swagger.summary = 'Busca um usuário por id'
+    // #swagger.description = 'Busca um usuário com base no ID fornecido pela URL'
     const id = req.params.id;
 
     try {
@@ -29,6 +32,9 @@ export async function getUser(req: Request, res: Response): Promise<void> {
     }
 }
 export async function getAllUsers(req: Request, res: Response): Promise<void> {
+    // #swagger.tags = ['Users']
+    // #swagger.summary = 'Lista todos os usuários'
+    // #swagger.description = 'Retorna uma lista de todos os usuários cadastrados no sistema.'
     try {
         const users = await User.find();
 
@@ -44,6 +50,15 @@ export async function getAllUsers(req: Request, res: Response): Promise<void> {
     }
 }
 export async function createUser(req: Request, res: Response): Promise<void> {
+    /*
+        #swagger.tags = ['Users']
+        #swagger.summary = 'Cria um novo usuário'
+        #swagger.description = 'Cria um novo usuário com os dados fornecidos no corpo da requisição. Retorna o usuário criado ou um erro em caso de falha.'
+        #swagger.parameters['body'] = {
+            in: 'body',
+            schema: { $ref: '#/definitions/createUser' }
+    } 
+    */
     const schema = Joi.object({
         name: Joi.string().alphanum().min(4).required(),
         password: Joi.string().min(8).required(),
@@ -92,6 +107,15 @@ export async function createUser(req: Request, res: Response): Promise<void> {
 }
 
 export async function loginUser(req: Request, res: Response): Promise<void> {
+    // #swagger.tags = ['Users']
+    // #swagger.summary = 'Autentica um usuário'
+    // #swagger.description = 'Autentica um usuário com as credenciais fornecidas no corpo da requisição. Retorna um token de acesso em caso de sucesso ou um erro de autenticação.'
+    /*
+    #swagger.parameters['body'] = {
+        in: 'body',
+        schema: { $ref: '#/definitions/login' }
+    } 
+    */
     const schema = Joi.object({
         password: Joi.string().required(), //validacao dos dados
         email: Joi.string().email().required(),
@@ -137,6 +161,9 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
     }
 }
 export async function deleteUser(req: Request, res: Response): Promise<void> {
+    // #swagger.tags = ['Users']
+    // #swagger.summary = 'Exclui um usuário pelo ID'
+    // #swagger.description = 'Exclui um usuário específico com base no ID fornecido na URL. Retorna uma mensagem de sucesso ou um erro se o usuário não for encontrado.'
     const id = req.params.id;
     try {
         if (!Types.ObjectId.isValid(id)) {
@@ -160,6 +187,9 @@ export async function deleteUser(req: Request, res: Response): Promise<void> {
 }
 
 export async function putUser(req: Request, res: Response): Promise<void> {
+    // #swagger.tags = ['Users']
+    // #swagger.summary = 'Atualiza um usuário pelo ID'
+    // #swagger.description = 'Atualiza os dados de um usuário específico com base no ID fornecido na URL e os dados fornecidos no corpo da requisição. Retorna o usuário atualizado ou um erro em caso de falha.'
     const id = req.params.id;
     const updates = req.body;
 

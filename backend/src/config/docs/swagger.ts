@@ -15,6 +15,32 @@ const doc = {
             description: 'Servidor local',
         },
     ],
+    definitions: {
+        createUser: {
+            $name: 'João Silva',
+            $password: 'minhasenha123@',
+            $email: 'joaosilva@gmail.com',
+            $profile: 'User',
+        },
+        login: {
+            $email: 'joaosilva@gmail.com',
+            $password: 'minhasenha123@',
+        },
+        createEstagiario: {
+            $name: 'João Silva',
+            $email: 'joaosilva@gmail.com',
+            company: 'ABC Tech',
+            $techStack: ['JS', 'Python'],
+            $bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            $birth: '2004-01-17',
+            $startDate: '2023-04-24',
+            $endDate: '2025-04-24',
+            $social: {
+                linkedin: 'https://www.linkedin.com/in/joaosilva',
+                github: 'https://github.com/joaosilva',
+            },
+        },
+    },
 };
 
 swaggerAutogen()(outputFile, endpointsFiles, doc).then(() => {

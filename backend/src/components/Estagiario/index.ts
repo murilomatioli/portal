@@ -6,6 +6,15 @@ export async function cadEstagiario(
     req: Request,
     res: Response
 ): Promise<void> {
+    // #swagger.tags = ['Estagiários']
+    // #swagger.summary = 'Cria um novo estagiário'
+    // #swagger.description = 'Cria um novo estagiário com os dados fornecidos no corpo da requisição. Retorna a confirmação de criado ou um erro em caso de falha.'
+    /*
+        #swagger.parameters['body'] = {
+            in: 'body',
+            schema: { $ref: '#/definitions/createEstagiario' }
+        } 
+    */
     const schema = Joi.object({
         name: Joi.string().alphanum().min(4).required(),
         email: Joi.string().email().required(),
@@ -68,6 +77,10 @@ export async function getEstagiarios(
     req: Request,
     res: Response
 ): Promise<void> {
+    // #swagger.tags = ['Estagiários']
+    // #swagger.summary = 'Lista todos os estagiários'
+    // #swagger.description = 'Retorna uma lista de todos os estagiários que foram cadastrados no sistema.'
+
     try {
         const estagiarios = await Estagiario.find();
         if (!estagiarios) {
