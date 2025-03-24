@@ -11,7 +11,11 @@ export async function getUser(req: Request, res: Response): Promise<void> {
     // #swagger.summary = 'Busca um usuário por id'
     // #swagger.description = 'Busca um usuário com base no ID fornecido pela URL'
     const id = req.params.id;
+    /*
+        #swagger.tags = ['Users']
+        #swagger.summary = 'Busca e exibe um usuário pelo seu id'
 
+    */
     try {
         if (!Types.ObjectId.isValid(id)) {
             res.status(400).json({ error: 'ID inválido' });
@@ -37,7 +41,11 @@ export async function getAllUsers(req: Request, res: Response): Promise<void> {
     // #swagger.description = 'Retorna uma lista de todos os usuários cadastrados no sistema.'
     try {
         const users = await User.find();
+        /*
+        #swagger.tags = ['Users']
+        #swagger.summary = 'Busca e exibe todos os usuários'
 
+    */
         if (!users) {
             res.status(404).json({ message: 'Não há usuários cadastrados' });
             return;
@@ -65,7 +73,10 @@ export async function createUser(req: Request, res: Response): Promise<void> {
         email: Joi.string().email().required(),
         profile: Joi.string().required(),
     });
-
+    /*
+        #swagger.tags = ['Users']
+        #swagger.summary = 'Cria um novo usuário'
+    */
     try {
         let { name, password, email, profile } = req.body;
 
@@ -120,7 +131,10 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
         password: Joi.string().required(), //validacao dos dados
         email: Joi.string().email().required(),
     });
-
+    /*
+        #swagger.tags = ['Users']
+        #swagger.summary = 'Realiza autenticação e retorna um token jwt'
+    */
     try {
         const { email, password } = req.body;
         const { error } = schema.validate({ email, password });
@@ -165,6 +179,10 @@ export async function deleteUser(req: Request, res: Response): Promise<void> {
     // #swagger.summary = 'Exclui um usuário pelo ID'
     // #swagger.description = 'Exclui um usuário específico com base no ID fornecido na URL. Retorna uma mensagem de sucesso ou um erro se o usuário não for encontrado.'
     const id = req.params.id;
+    /*
+        #swagger.tags = ['Users']
+        #swagger.summary = 'Deleta um usuário pelo seu id'
+    */
     try {
         if (!Types.ObjectId.isValid(id)) {
             res.status(400).json({ error: 'ID inválido' });
@@ -192,7 +210,11 @@ export async function putUser(req: Request, res: Response): Promise<void> {
     // #swagger.description = 'Atualiza os dados de um usuário específico com base no ID fornecido na URL e os dados fornecidos no corpo da requisição. Retorna o usuário atualizado ou um erro em caso de falha.'
     const id = req.params.id;
     const updates = req.body;
+    /*
+        #swagger.tags = ['Users']
+        #swagger.summary = 'Modifica os dados de um usuário pelo seu id'
 
+    */
     if (!Types.ObjectId.isValid(id)) {
         res.status(400).json({ error: 'ID inválido.' });
         return;

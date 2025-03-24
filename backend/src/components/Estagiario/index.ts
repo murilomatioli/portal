@@ -31,7 +31,11 @@ export async function cadEstagiario(
             instagram: Joi.string().uri().optional(),
         }),
     });
+    /*
+        #swagger.tags = ['Estagiários']
+        #swagger.summary = 'Cadastra um estagiário'
 
+    */
     try {
         const {
             name,
@@ -83,6 +87,9 @@ export async function getEstagiarios(
 
     try {
         const estagiarios = await Estagiario.find();
+        /*
+        #swagger.tags = ['Estagiários']
+    */
         if (!estagiarios) {
             res.status(404).json({
                 message: 'Não há estagiários cadastrados.',

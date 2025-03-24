@@ -10,6 +10,7 @@ interface IEstagiario extends Document {
     birth?: Date;
     startDate: Date;
     endDate?: Date;
+    story: string;
     social: {
         linkedin?: string;
         github?: string;
@@ -27,6 +28,7 @@ const EstagiarioSchema = new Schema({
     birth: { type: Date },
     startDate: { type: Date },
     endDate: { type: Date },
+    story: { type: String },
     social: {
         linkedin: { type: String, default: '' },
         github: { type: String, default: '' },
