@@ -38,6 +38,7 @@ var Profiles;
 (function (Profiles) {
     Profiles["ADMIN"] = "admin";
     Profiles["USER"] = "user";
+    Profiles["ESTAGIARIO"] = "estagiario";
 })(Profiles || (Profiles = {}));
 const UserSchema = new mongoose_1.Schema({
     name: { type: String, required: true },

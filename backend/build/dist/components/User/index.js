@@ -26,7 +26,15 @@ const bcrypt_2 = require("bcrypt");
 const AuthService_1 = require("../../config/Auth/AuthService");
 function getUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        // #swagger.tags = ['Users']
+        // #swagger.summary = 'Busca um usuário por id'
+        // #swagger.description = 'Busca um usuário com base no ID fornecido pela URL'
         const id = req.params.id;
+        /*
+            #swagger.tags = ['Users']
+            #swagger.summary = 'Busca e exibe um usuário pelo seu id'
+    
+        */
         try {
             if (!mongoose_1.Types.ObjectId.isValid(id)) {
                 res.status(400).json({ error: 'ID inválido' });
@@ -49,8 +57,16 @@ function getUser(req, res) {
 }
 function getAllUsers(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        // #swagger.tags = ['Users']
+        // #swagger.summary = 'Lista todos os usuários'
+        // #swagger.description = 'Retorna uma lista de todos os usuários cadastrados no sistema.'
         try {
             const users = yield model_1.default.find();
+            /*
+            #swagger.tags = ['Users']
+            #swagger.summary = 'Busca e exibe todos os usuários'
+    
+        */
             if (!users) {
                 res.status(404).json({ message: 'Não há usuários cadastrados' });
                 return;
@@ -66,12 +82,25 @@ function getAllUsers(req, res) {
 }
 function createUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        /*
+            #swagger.tags = ['Users']
+            #swagger.summary = 'Cria um novo usuário'
+            #swagger.description = 'Cria um novo usuário com os dados fornecidos no corpo da requisição. Retorna o usuário criado ou um erro em caso de falha.'
+            #swagger.parameters['body'] = {
+                in: 'body',
+                schema: { $ref: '#/definitions/createUser' }
+        }
+        */
         const schema = joi_1.default.object({
             name: joi_1.default.string().alphanum().min(4).required(),
             password: joi_1.default.string().min(8).required(),
             email: joi_1.default.string().email().required(),
             profile: joi_1.default.string().required(),
         });
+        /*
+            #swagger.tags = ['Users']
+            #swagger.summary = 'Cria um novo usuário'
+        */
         try {
             let { name, password, email, profile } = req.body;
             const checkEmailExist = yield model_1.default.findOne({ email });
@@ -107,10 +136,23 @@ function createUser(req, res) {
 }
 function loginUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        // #swagger.tags = ['Users']
+        // #swagger.summary = 'Autentica um usuário'
+        // #swagger.description = 'Autentica um usuário com as credenciais fornecidas no corpo da requisição. Retorna um token de acesso em caso de sucesso ou um erro de autenticação.'
+        /*
+        #swagger.parameters['body'] = {
+            in: 'body',
+            schema: { $ref: '#/definitions/login' }
+        }
+        */
         const schema = joi_1.default.object({
             password: joi_1.default.string().required(), //validacao dos dados
             email: joi_1.default.string().email().required(),
         });
+        /*
+            #swagger.tags = ['Users']
+            #swagger.summary = 'Realiza autenticação e retorna um token jwt'
+        */
         try {
             const { email, password } = req.body;
             const { error } = schema.validate({ email, password });
@@ -147,7 +189,14 @@ function loginUser(req, res) {
 }
 function deleteUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        // #swagger.tags = ['Users']
+        // #swagger.summary = 'Exclui um usuário pelo ID'
+        // #swagger.description = 'Exclui um usuário específico com base no ID fornecido na URL. Retorna uma mensagem de sucesso ou um erro se o usuário não for encontrado.'
         const id = req.params.id;
+        /*
+            #swagger.tags = ['Users']
+            #swagger.summary = 'Deleta um usuário pelo seu id'
+        */
         try {
             if (!mongoose_1.Types.ObjectId.isValid(id)) {
                 res.status(400).json({ error: 'ID inválido' });
@@ -171,8 +220,16 @@ function deleteUser(req, res) {
 }
 function putUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        // #swagger.tags = ['Users']
+        // #swagger.summary = 'Atualiza um usuário pelo ID'
+        // #swagger.description = 'Atualiza os dados de um usuário específico com base no ID fornecido na URL e os dados fornecidos no corpo da requisição. Retorna o usuário atualizado ou um erro em caso de falha.'
         const id = req.params.id;
         const updates = req.body;
+        /*
+            #swagger.tags = ['Users']
+            #swagger.summary = 'Modifica os dados de um usuário pelo seu id'
+    
+        */
         if (!mongoose_1.Types.ObjectId.isValid(id)) {
             res.status(400).json({ error: 'ID inválido.' });
             return;

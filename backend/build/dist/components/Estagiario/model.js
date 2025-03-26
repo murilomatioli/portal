@@ -33,8 +33,22 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EstagiarioComponent = exports.UserComponent = void 0;
-const UserComponent = __importStar(require("./User/"));
-exports.UserComponent = UserComponent;
-const EstagiarioComponent = __importStar(require("./Estagiario/"));
-exports.EstagiarioComponent = EstagiarioComponent;
+const mongoose_1 = __importStar(require("mongoose"));
+const EstagiarioSchema = new mongoose_1.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    role: { type: String, required: true },
+    company: { type: String, required: false, default: 'Independente' },
+    techStack: { type: [String], required: true },
+    bio: { type: String, required: false },
+    birth: { type: Date },
+    startDate: { type: Date },
+    endDate: { type: Date },
+    story: { type: String },
+    social: {
+        linkedin: { type: String, default: '' },
+        github: { type: String, default: '' },
+        instagram: { type: String, default: '' },
+    },
+});
+exports.default = mongoose_1.default.model('Estagiario', EstagiarioSchema);

@@ -7,14 +7,15 @@ const doc = {
     info: {
         title: 'Portal Ilha Conectada',
         version: '1.0.0',
-        description: 'Documentação da API usando Swagger',
+        description:
+            process.env.NODE_ENV === 'development'
+                ? 'API do Portal Ilha Conectada. Atualmente está rodando em desenvolvimento'
+                : 'API do Portal Ilha Conectada. Atualmente está rodando em produção',
     },
-    servers: [
-        {
-            url: 'http://localhost:3000/',
-            description: 'Servidor local',
-        },
-    ],
+    host:
+        process.env.NODE_ENV === 'development'
+            ? 'localhost:3000'
+            : 'localhost:8000',
     definitions: {
         createUser: {
             $name: 'João Silva',

@@ -45,26 +45,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-//@ts-ignore
-const swagger_1 = __importDefault(require("../../config/docs/swagger"));
+const swagger_json_1 = __importDefault(require("../docs/swagger.json"));
 const express_1 = __importDefault(require("express"));
-const index_js_1 = __importDefault(require("../../routes/index.js"));
-const connection_js_1 = __importDefault(require("../connection/connection.js"));
+const routes_1 = __importDefault(require("../../routes"));
+const connection_1 = __importDefault(require("../connection/connection"));
 const dotenv = __importStar(require("dotenv"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 dotenv.config();
-const PORT = 3000;
+const environment = process.env.NODE_ENV;
+let PORT = 3000;
+environment === 'production' ? (PORT = 8000) : (PORT = 3000);
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use('/api', index_js_1.default);
-app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.default));
+app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_json_1.default));
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield (0, connection_js_1.default)();
-            app.use('/api', index_js_1.default);
+            yield (0, connection_1.default)();
+            app.use(routes_1.default);
             app.listen(PORT, () => {
-                console.log(process.env.MONGO_HOST);
                 console.log(`Servidor rodando na porta ${PORT}`);
             });
         }

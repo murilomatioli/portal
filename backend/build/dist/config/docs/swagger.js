@@ -43,16 +43,48 @@ const doc = {
     info: {
         title: 'Portal Ilha Conectada',
         version: '1.0.0',
-        description: 'Documentação da API usando Swagger',
+        description: process.env.NODE_ENV === 'development'
+            ? 'API do Portal Ilha Conectada. Atualmente está rodando em desenvolvimento'
+            : 'API do Portal Ilha Conectada. Atualmente está rodando em produção',
     },
     servers: [
         {
-            url: 'http://localhost:3000',
-            description: 'Servidor local',
+            url: process.env.NODE_ENV === 'development'
+                ? 'http://localhost:3000/'
+                : 'http://localhost:8000/',
+            description: process.env.NODE_ENV === 'development'
+                ? 'Rodando em produção'
+                : 'Rodando em desenvolvimento',
         },
     ],
+    definitions: {
+        createUser: {
+            $name: 'João Silva',
+            $password: 'minhasenha123@',
+            $email: 'joaosilva@gmail.com',
+            $profile: 'User',
+        },
+        login: {
+            $email: 'joaosilva@gmail.com',
+            $password: 'minhasenha123@',
+        },
+        createEstagiario: {
+            $name: 'João Silva',
+            $email: 'joaosilva@gmail.com',
+            company: 'ABC Tech',
+            $techStack: ['JS', 'Python'],
+            $bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            $birth: '2004-01-17',
+            $startDate: '2023-04-24',
+            $endDate: '2025-04-24',
+            $social: {
+                linkedin: 'https://www.linkedin.com/in/joaosilva',
+                github: 'https://github.com/joaosilva',
+            },
+        },
+    },
 };
 (0, swagger_autogen_1.default)()(outputFile, endpointsFiles, doc).then(() => {
     console.log('Swagger docs gerado com sucesso!');
-    Promise.resolve().then(() => __importStar(require('../server/server.js')));
+    Promise.resolve().then(() => __importStar(require('../server/server')));
 });

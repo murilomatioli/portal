@@ -3,6 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 enum Profiles {
     ADMIN = 'admin',
     USER = 'user',
+    ESTAGIARIO = 'estagiario',
 }
 
 interface IUser extends Document {

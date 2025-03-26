@@ -7,7 +7,10 @@ import swaggerUi from 'swagger-ui-express';
 
 dotenv.config();
 
-const PORT = 3000;
+const environment = process.env.NODE_ENV;
+
+let PORT = 3000;
+environment === 'production' ? (PORT = 8000) : (PORT = 3000);
 
 const app = express();
 
@@ -21,7 +24,6 @@ async function startServer() {
         app.use(router);
 
         app.listen(PORT, () => {
-            console.log(process.env.MONGO_HOST);
             console.log(`Servidor rodando na porta ${PORT}`);
         });
     } catch (error) {
