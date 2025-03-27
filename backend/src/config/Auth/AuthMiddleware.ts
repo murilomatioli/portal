@@ -1,11 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { decode, JwtPayload } from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import { IGetId } from '../../types/userAuth';
+import { jwtDecode } from 'jwt-decode';
 
 dotenv.config();
 
 export const authenticateJWT = (
-    req: Request,
+    req: IGetId,
     res: Response,
     next: NextFunction
 ) => {
@@ -18,8 +20,10 @@ export const authenticateJWT = (
                 .json({ message: 'Acesso negado. Token não fornecido.' });
         }
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+        jwt.verify(token, process.env.JWT_SECRET as string);
+        const decoded = jwtDecode(token);
 
+        req.user = decoded;
         next();
     } catch (err) {
         return res.status(401).json({ message: 'Token inválido' });

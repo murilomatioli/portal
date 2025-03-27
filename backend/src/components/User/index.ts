@@ -5,6 +5,7 @@ import Joi from 'joi';
 import { hashPassword } from '../../config/bcrypt/bcrypt';
 import { compareSync } from 'bcrypt';
 import { generateToken } from '../../config/Auth/AuthService';
+import { IGetId } from '../../types/userAuth';
 
 export async function getUser(req: Request, res: Response): Promise<void> {
     // #swagger.tags = ['Users']
@@ -35,21 +36,26 @@ export async function getUser(req: Request, res: Response): Promise<void> {
         return;
     }
 }
-export async function getAllUsers(req: Request, res: Response): Promise<void> {
+export async function getAllUsers(req: IGetId, res: Response): Promise<void> {
     // #swagger.tags = ['Users']
     // #swagger.summary = 'Lista todos os usuários'
     // #swagger.description = 'Retorna uma lista de todos os usuários cadastrados no sistema.'
+    // #swagger.tags = ['Users']
+    // #swagger.summary = 'Busca e exibe todos os usuários'
     try {
+        if (req.user.role != 'admin') {
+            res.status(401).json({
+                message: 'Você não possui permissão para executar essa ação',
+            });
+            return;
+        }
         const users = await User.find();
-        /*
-        #swagger.tags = ['Users']
-        #swagger.summary = 'Busca e exibe todos os usuários'
-
-    */
         if (!users) {
             res.status(404).json({ message: 'Não há usuários cadastrados' });
             return;
         }
+        console.log('O usuário é ' + req.user.role);
+
         res.status(200).json(users);
         return;
     } catch (error) {
@@ -101,11 +107,11 @@ export async function createUser(req: Request, res: Response): Promise<void> {
         }
 
         const hash = await hashPassword(password);
-
         const user = new User({
             name,
             password: hash,
             email,
+            profile,
         });
 
         await user.save();
@@ -113,7 +119,7 @@ export async function createUser(req: Request, res: Response): Promise<void> {
         res.status(201).json({ message: 'Usuário criado com sucesso!' });
     } catch (error) {
         console.error('Erro ao criar usuário:', error);
-        res.status(500).json({ error: 'Erro interno do servidor.' });
+        res.status(500).json({ error: 'Erro interno do servidor.' + error });
     }
 }
 
@@ -174,7 +180,7 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
         return;
     }
 }
-export async function deleteUser(req: Request, res: Response): Promise<void> {
+export async function deleteUser(req: IGetId, res: Response): Promise<void> {
     // #swagger.tags = ['Users']
     // #swagger.summary = 'Exclui um usuário pelo ID'
     // #swagger.description = 'Exclui um usuário específico com base no ID fornecido na URL. Retorna uma mensagem de sucesso ou um erro se o usuário não for encontrado.'
@@ -184,6 +190,12 @@ export async function deleteUser(req: Request, res: Response): Promise<void> {
         #swagger.summary = 'Deleta um usuário pelo seu id'
     */
     try {
+        if (req.user.role != 'admin') {
+            res.status(401).json({
+                message: 'Você não possui permissão para executar essa ação',
+            });
+            return;
+        }
         if (!Types.ObjectId.isValid(id)) {
             res.status(400).json({ error: 'ID inválido' });
             return;
