@@ -47,29 +47,22 @@ const doc = {
             ? 'API do Portal Ilha Conectada. Atualmente está rodando em desenvolvimento'
             : 'API do Portal Ilha Conectada. Atualmente está rodando em produção',
     },
-    servers: [
-        {
-            url: process.env.NODE_ENV === 'development'
-                ? 'http://localhost:3000/'
-                : 'http://localhost:8000/',
-            description: process.env.NODE_ENV === 'development'
-                ? 'Rodando em produção'
-                : 'Rodando em desenvolvimento',
-        },
-    ],
+    host: process.env.NODE_ENV === 'development'
+        ? 'localhost:3000'
+        : 'localhost:8000',
     definitions: {
         createUser: {
-            $name: 'João Silva',
+            $name: 'João',
             $password: 'minhasenha123@',
             $email: 'joaosilva@gmail.com',
-            $profile: 'User',
+            $profile: 'user',
         },
         login: {
             $email: 'joaosilva@gmail.com',
             $password: 'minhasenha123@',
         },
         createEstagiario: {
-            $name: 'João Silva',
+            $name: 'João',
             $email: 'joaosilva@gmail.com',
             company: 'ABC Tech',
             $techStack: ['JS', 'Python'],

@@ -23,7 +23,7 @@ const model_1 = __importDefault(require("./model"));
 const joi_1 = __importDefault(require("joi"));
 const bcrypt_1 = require("../../config/bcrypt/bcrypt");
 const bcrypt_2 = require("bcrypt");
-const AuthService_1 = require("../../config/Auth/AuthService");
+const AuthService_1 = require("../../config/auth/AuthService");
 function getUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         // #swagger.tags = ['Users']
@@ -60,17 +60,21 @@ function getAllUsers(req, res) {
         // #swagger.tags = ['Users']
         // #swagger.summary = 'Lista todos os usuários'
         // #swagger.description = 'Retorna uma lista de todos os usuários cadastrados no sistema.'
+        // #swagger.tags = ['Users']
+        // #swagger.summary = 'Busca e exibe todos os usuários'
         try {
+            if (req.user.role != 'admin') {
+                res.status(401).json({
+                    message: 'Você não possui permissão para executar essa ação',
+                });
+                return;
+            }
             const users = yield model_1.default.find();
-            /*
-            #swagger.tags = ['Users']
-            #swagger.summary = 'Busca e exibe todos os usuários'
-    
-        */
             if (!users) {
                 res.status(404).json({ message: 'Não há usuários cadastrados' });
                 return;
             }
+            console.log('O usuário é ' + req.user.role);
             res.status(200).json(users);
             return;
         }
@@ -124,13 +128,14 @@ function createUser(req, res) {
                 name,
                 password: hash,
                 email,
+                profile,
             });
             yield user.save();
             res.status(201).json({ message: 'Usuário criado com sucesso!' });
         }
         catch (error) {
             console.error('Erro ao criar usuário:', error);
-            res.status(500).json({ error: 'Erro interno do servidor.' });
+            res.status(500).json({ error: 'Erro interno do servidor.' + error });
         }
     });
 }
@@ -198,6 +203,12 @@ function deleteUser(req, res) {
             #swagger.summary = 'Deleta um usuário pelo seu id'
         */
         try {
+            if (req.user.role != 'admin') {
+                res.status(401).json({
+                    message: 'Você não possui permissão para executar essa ação',
+                });
+                return;
+            }
             if (!mongoose_1.Types.ObjectId.isValid(id)) {
                 res.status(400).json({ error: 'ID inválido' });
                 return;

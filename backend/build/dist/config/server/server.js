@@ -45,26 +45,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+//@ts-ignore
+const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_json_1 = __importDefault(require("../docs/swagger.json"));
 const express_1 = __importDefault(require("express"));
 const routes_1 = __importDefault(require("../../routes"));
 const connection_1 = __importDefault(require("../connection/connection"));
 const dotenv = __importStar(require("dotenv"));
-const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
+const enviroment_1 = __importDefault(require("../env/enviroment"));
 dotenv.config();
-const environment = process.env.NODE_ENV;
-let PORT = 3000;
-environment === 'production' ? (PORT = 8000) : (PORT = 3000);
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_json_1.default));
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield (0, connection_1.default)();
             app.use(routes_1.default);
-            app.listen(PORT, () => {
-                console.log(`Servidor rodando na porta ${PORT}`);
+            //prettier-ignore
+            if (process.env.NODE_ENV === 'development') {
+                app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_json_1.default));
+            }
+            //prettier-ignore
+            app.listen(enviroment_1.default.PORT || process.env.PORT, () => {
+                console.log(`Servidor rodando na porta ${enviroment_1.default.PORT}`);
             });
         }
         catch (error) {

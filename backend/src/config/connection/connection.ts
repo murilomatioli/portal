@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import envConfig from '../env/enviroment';
 
 dotenv.config();
 
-const mongoUri = `${process.env.MONGO_HOST}/${process.env.MONGO_DATABASE}`;
+const mongoUri = `${envConfig.MONGO_URI.mongo_host}/${envConfig.MONGO_URI.mongo_db}`;
 
 export default async function connectDB() {
     try {

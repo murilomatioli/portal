@@ -6,12 +6,6 @@
         "description": "API do Portal Ilha Conectada. Atualmente está rodando em desenvolvimento"
     },
     "host": "localhost:3000",
-    "servers": [
-        {
-            "url": "http://localhost:3000/",
-            "description": "Rodando em produção"
-        }
-    ],
     "basePath": "/",
     "schemes": [
         "http"
@@ -306,7 +300,7 @@
             "properties": {
                 "name": {
                     "type": "string",
-                    "example": "João Silva"
+                    "example": "João"
                 },
                 "password": {
                     "type": "string",
@@ -318,7 +312,7 @@
                 },
                 "profile": {
                     "type": "string",
-                    "example": "User"
+                    "example": "user"
                 }
             },
             "required": [
@@ -350,7 +344,7 @@
             "properties": {
                 "name": {
                     "type": "string",
-                    "example": "João Silva"
+                    "example": "João"
                 },
                 "email": {
                     "type": "string",

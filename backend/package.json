@@ -16,10 +16,10 @@
         "telefone": "^1.2.5"
     },
     "scripts": {
-        "dev": "cross-env NODE_ENV=development npm run swagger && ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/config/server/server.ts",
-        "build": "cross-env NODE_ENV=production npm run swagger && tsc && node build/dist/config/server/server.js",
-        "swagger": "npx ts-node src/config/docs/swagger.ts",
-        "compile": "tsc"
+        "dev": "tsc && cross-env NODE_ENV=development npm run swagger && ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/config/server/server.ts",
+        "build": "tsc",
+        "prod": "tsc && NODE_ENV=production node build/dist/config/server/server.js",
+        "swagger": "npx ts-node src/config/docs/swagger.ts"
     },
     "devDependencies": {
         "@types/express": "^5.0.0",

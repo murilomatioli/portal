@@ -4,7 +4,7 @@ import User from './model';
 import Joi from 'joi';
 import { hashPassword } from '../../config/bcrypt/bcrypt';
 import { compareSync } from 'bcrypt';
-import { generateToken } from '../../config/Auth/AuthService';
+import { generateToken } from '../../config/auth/AuthService';
 import { IGetId } from '../../types/userAuth';
 
 export async function getUser(req: Request, res: Response): Promise<void> {

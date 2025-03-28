@@ -3,9 +3,9 @@
   "info": {
     "title": "Portal Ilha Conectada",
     "version": "1.0.0",
-    "description": "API do Portal Ilha Conectada. Atualmente está rodando em produção"
+    "description": "API do Portal Ilha Conectada. Atualmente está rodando em desenvolvimento"
   },
-  "host": "localhost:8000",
+  "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
     "http"
@@ -312,7 +312,7 @@
         },
         "profile": {
           "type": "string",
-          "example": "User"
+          "example": "user"
         }
       },
       "required": [

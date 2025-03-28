@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Estagiario from './model';
 import Joi from 'joi';
+import { IGetId } from '../../types/userAuth';
 
 export async function cadEstagiario(
     req: Request,
@@ -15,6 +16,7 @@ export async function cadEstagiario(
             schema: { $ref: '#/definitions/createEstagiario' }
         } 
     */
+
     const schema = Joi.object({
         name: Joi.string().alphanum().min(4).required(),
         email: Joi.string().email().required(),

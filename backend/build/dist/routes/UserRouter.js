@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const components_1 = require("../components");
-const AuthMiddleware_1 = require("../config/Auth/AuthMiddleware");
+const AuthMiddleware_1 = require("../config/auth/AuthMiddleware");
 const router = (0, express_1.Router)();
 router.post('/createUser', components_1.UserComponent.createUser);
 router.post('/login', components_1.UserComponent.loginUser);

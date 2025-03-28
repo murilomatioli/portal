@@ -21,7 +21,7 @@ const doc = {
             $name: 'João',
             $password: 'minhasenha123@',
             $email: 'joaosilva@gmail.com',
-            $profile: 'User',
+            $profile: 'user',
         },
         login: {
             $email: 'joaosilva@gmail.com',
