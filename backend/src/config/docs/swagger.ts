@@ -18,7 +18,7 @@ const doc = {
             : 'localhost:8000',
     definitions: {
         createUser: {
-            $name: 'João Silva',
+            $name: 'João',
             $password: 'minhasenha123@',
             $email: 'joaosilva@gmail.com',
             $profile: 'User',
@@ -28,7 +28,7 @@ const doc = {
             $password: 'minhasenha123@',
         },
         createEstagiario: {
-            $name: 'João Silva',
+            $name: 'João',
             $email: 'joaosilva@gmail.com',
             company: 'ABC Tech',
             $techStack: ['JS', 'Python'],
