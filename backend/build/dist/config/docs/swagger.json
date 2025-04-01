@@ -253,6 +253,11 @@
                 "description": "Cria um novo estagiário com os dados fornecidos no corpo da requisição. Retorna a confirmação de criado ou um erro em caso de falha.",
                 "parameters": [
                     {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "type": "string"
+                    },
+                    {
                         "name": "body",
                         "in": "body",
                         "schema": {
@@ -266,6 +271,12 @@
                     },
                     "400": {
                         "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden"
                     },
                     "500": {
                         "description": "Internal Server Error"

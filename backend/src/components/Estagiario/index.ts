@@ -3,10 +3,7 @@ import Estagiario from './model';
 import Joi from 'joi';
 import { IGetId } from '../../types/userAuth';
 
-export async function cadEstagiario(
-    req: Request,
-    res: Response
-): Promise<void> {
+export async function cadEstagiario(req: IGetId, res: Response): Promise<void> {
     // #swagger.tags = ['Estagiários']
     // #swagger.summary = 'Cria um novo estagiário'
     // #swagger.description = 'Cria um novo estagiário com os dados fornecidos no corpo da requisição. Retorna a confirmação de criado ou um erro em caso de falha.'
@@ -16,14 +13,20 @@ export async function cadEstagiario(
             schema: { $ref: '#/definitions/createEstagiario' }
         } 
     */
+    if (req.user.role != 'admin') {
+        res.status(401).json({
+            message: 'Você não possui permissão para executar essa ação',
+        });
+        return;
+    }
 
     const schema = Joi.object({
-        name: Joi.string().alphanum().min(4).required(),
+        name: Joi.string().min(4).required(),
         email: Joi.string().email().required(),
         role: Joi.string().min(4).required(),
         company: Joi.string().min(2).required(),
         techStack: Joi.array().items(Joi.string()).default([]),
-        bio: Joi.string().optional().default('Sem descrição disponível.'),
+        bio: Joi.string().optional().default('Sem relato disponível.'),
         birth: Joi.date().optional(),
         startDate: Joi.date().required(),
         endDate: Joi.date().optional(),

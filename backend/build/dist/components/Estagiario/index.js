@@ -27,13 +27,19 @@ function cadEstagiario(req, res) {
                 schema: { $ref: '#/definitions/createEstagiario' }
             }
         */
+        if (req.user.role != 'admin') {
+            res.status(401).json({
+                message: 'Você não possui permissão para executar essa ação',
+            });
+            return;
+        }
         const schema = joi_1.default.object({
-            name: joi_1.default.string().alphanum().min(4).required(),
+            name: joi_1.default.string().min(4).required(),
             email: joi_1.default.string().email().required(),
             role: joi_1.default.string().min(4).required(),
             company: joi_1.default.string().min(2).required(),
             techStack: joi_1.default.array().items(joi_1.default.string()).default([]),
-            bio: joi_1.default.string().optional().default('Sem descrição disponível.'),
+            bio: joi_1.default.string().optional().default('Sem relato disponível.'),
             birth: joi_1.default.date().optional(),
             startDate: joi_1.default.date().required(),
             endDate: joi_1.default.date().optional(),

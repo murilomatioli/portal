@@ -18,6 +18,7 @@ const authenticateJWT = (req, res, next) => {
         }
         jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
         const decoded = (0, jwt_decode_1.jwtDecode)(token);
+        console.log(decoded);
         req.user = decoded;
         next();
     }

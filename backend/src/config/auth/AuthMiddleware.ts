@@ -22,7 +22,7 @@ export const authenticateJWT = (
 
         jwt.verify(token, process.env.JWT_SECRET as string);
         const decoded = jwtDecode(token);
-
+        console.log(decoded);
         req.user = decoded;
         next();
     } catch (err) {

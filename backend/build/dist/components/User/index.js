@@ -60,7 +60,6 @@ function getAllUsers(req, res) {
         // #swagger.tags = ['Users']
         // #swagger.summary = 'Lista todos os usuários'
         // #swagger.description = 'Retorna uma lista de todos os usuários cadastrados no sistema.'
-        // #swagger.tags = ['Users']
         // #swagger.summary = 'Busca e exibe todos os usuários'
         try {
             if (req.user.role != 'admin') {
@@ -74,7 +73,6 @@ function getAllUsers(req, res) {
                 res.status(404).json({ message: 'Não há usuários cadastrados' });
                 return;
             }
-            console.log('O usuário é ' + req.user.role);
             res.status(200).json(users);
             return;
         }
