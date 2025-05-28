@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-interns',
   imports: [],
+  standalone: true,
   templateUrl: './interns.component.html',
   styleUrl: './interns.component.scss'
 })

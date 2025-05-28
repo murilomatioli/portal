@@ -1,48 +1,31 @@
 
-body {
-  background-color: #001f3f; 
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-
 h1 {
   text-align: center;
   margin-top: 30px;
+  margin-bottom: 30px;
+  color: white
 }
 
 
-.intern {
-  background-color: #0d3b66; 
-  padding: 20px;
+.intern-card { // card de cada estagiario
+  background-color: white;
+  color: black; 
+  padding: 25px;
   border-radius: 10px;
-  max-width: 500px;
+  max-width: 400px;
   margin: 20px auto;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   border: 1px solid #fff;
 }
 
-
-img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid white;
-  margin-bottom: 10px;
-}
-
-
-strong {
+strong { // nome do estagiario
   font-size: 20px;
   display: block;
   margin-bottom: 5px;
 }
 
-em {
-  color: #b0d4ff;
+em { // cargo em destaque
+  color: red;
   display: block;
   margin-bottom: 10px;
 }
@@ -50,37 +33,17 @@ em {
 
 p {
   margin: 5px 0;
+  font-size: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 
-.social a {
-  margin: 0 8px;
-  color: #00d4ff;
+.social-links a {
+  margin: 8px;
+  color: red;
   text-decoration: none;
   font-weight: bold;
-}
-
-.social a:hover {
-  text-decoration: underline;
-  color: #00ffff;
-}
-
-
-a {
-  color: #00d4ff;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-  color: #00ffff;
-}
-
-
-.router-link {
-  display: block;
-  text-align: center;
-  margin-top: 30px;
 }
 
 button {
@@ -93,16 +56,10 @@ button {
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
   background-color: #00ffff;
-  transform: translateY(-2px);
 }
 
-button:active {
-  background-color: #00b5d8;
-  transform: translateY(0);
-}
 

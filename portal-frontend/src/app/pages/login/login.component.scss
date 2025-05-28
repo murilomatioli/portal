@@ -1,53 +1,57 @@
-h1 {
-  text-align: center;
+
+h1, p {
+  text-align: center; 
 }
 
+/* formulario */
 form {
-  max-width: 300px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 2px solid #333;
-  border-radius: 8px;
-  background-color: #f4f4f4;
+  max-width: 300px;     /* largura maxima */
+  margin: 30px auto; 
+  padding: 25px; 
+  background-color: white; 
+  border: 1px solid black; 
+  border-radius: 8px;  
 }
 
 label {
+  display: block;       /* label ocupa o bloco inteiro */
+  margin-bottom: 6px; 
   font-weight: bold;
-  color: #333;
+  color: #363333; 
 }
 
-input {
-  width: 100%;
-  padding: 8px;
-  margin-top: 4px;
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
+input[type="email"],
+input[type="password"] { 
+  width: 100%;          
+  padding: 10px;        
+  margin-bottom: 15px; 
+  border: 1px solid grey;
   border-radius: 4px;
+  box-sizing: border-box; 
 }
 
 button {
   width: 100%;
-  padding: 10px;
-  background-color: #333;
+  padding: 12px;
+  background-color: blue; 
   color: white;
+  font-size: 16px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
+/* efeito ao passar o mouse no botao */
 button:hover {
-  background-color: #555;
-}
-
-p {
-  text-align: center;
+  background-color: rgb(32, 32, 180); 
 }
 
 a {
-  color: #007bff;
-  text-decoration: none;
+  color: #007bff; 
+  text-decoration: none; /* tirando o sublinhado */
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration: underline; /* adiciona sublinhado */
+  cursor: pointer;
 }
