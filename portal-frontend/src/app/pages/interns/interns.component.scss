@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 h1 {
   text-align: center;
   margin-top: 30px;
@@ -14,14 +15,37 @@ h1 {
   border-radius: 10px;
   max-width: 400px;
   margin: 20px auto;
+=======
+body {
+  background-color: #001f3f; 
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.intern {
+  background-color: #0d3b66; 
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: 10px auto;
+>>>>>>> 1c54b5d41cf844b62ebaa3c33bf22127df1307d0
   text-align: center;
   border: 1px solid #fff;
 }
 
+<<<<<<< HEAD
 strong { // nome do estagiario
+=======
+strong {
+>>>>>>> 1c54b5d41cf844b62ebaa3c33bf22127df1307d0
   font-size: 20px;
   display: block;
-  margin-bottom: 5px;
 }
 
 em { // cargo em destaque
@@ -30,7 +54,6 @@ em { // cargo em destaque
   margin-bottom: 10px;
 }
 
-
 p {
   margin: 5px 0;
   font-size: 15px;
@@ -38,21 +61,43 @@ p {
   margin-bottom: 10px;
 }
 
+<<<<<<< HEAD
 
 .social-links a {
   margin: 8px;
   color: red;
+=======
+.social a {
+  color: #00d4ff;
+>>>>>>> 1c54b5d41cf844b62ebaa3c33bf22127df1307d0
   text-decoration: none;
   font-weight: bold;
 }
 
+<<<<<<< HEAD
+=======
+.social a:hover {
+  text-decoration: underline;
+  color: #00ffff;
+}
+
+a {
+  color: #00d4ff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #00ffff;
+}
+
+>>>>>>> 1c54b5d41cf844b62ebaa3c33bf22127df1307d0
 button {
   display: block;
   margin: 20px auto;
   background-color: #00d4ff;
-  color: #001f3f;
-  border: none;
-  padding: 10px 20px;
+  color: black;
+  padding: 8px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
@@ -62,4 +107,8 @@ button:hover {
   background-color: #00ffff;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1c54b5d41cf844b62ebaa3c33bf22127df1307d0
 
