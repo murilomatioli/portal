@@ -2,6 +2,7 @@
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../docs/swagger.json';
 import express from 'express';
+import cors from 'cors';
 import router from '../../routes';
 import connectToDatabase from '../connection/connection';
 import * as dotenv from 'dotenv';
@@ -11,7 +12,10 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-
+const corsOptions = {
+    origin: envConfig.FRONTEND_URL,
+};
+app.use(cors(corsOptions));
 async function startServer() {
     try {
         await connectToDatabase();

@@ -3,6 +3,7 @@
         "@sideway/address": "^5.0.0",
         "@types/bcrypt": "^5.0.2",
         "bcrypt": "^5.1.1",
+        "cors": "^2.8.5",
         "dotenv": "^16.4.7",
         "express": "^4.21.2",
         "joi": "^17.13.3",
@@ -22,6 +23,7 @@
         "swagger": "npx ts-node src/config/docs/swagger.ts"
     },
     "devDependencies": {
+        "@types/cors": "^2.8.19",
         "@types/express": "^5.0.0",
         "@types/jsonwebtoken": "^9.0.9",
         "@types/mongodb": "^4.0.7",

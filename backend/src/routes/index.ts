@@ -5,6 +5,6 @@ import EstagiarioRouter from './EstagiarioRouter';
 const router: Router = express.Router();
 
 router.use('/users', UserRouter);
-router.use('/estagiarios/', EstagiarioRouter);
+router.use('/estagiarios', EstagiarioRouter);
 
 export default router;
