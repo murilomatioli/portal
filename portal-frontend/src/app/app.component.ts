@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-
+import { ApiService, Estagiario } from './services/api.service';
+import { NgIf, NgFor } from '@angular/common'; //mostrar os dados no HTML
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'Bem vindo ao Portal!';
+  constructor() {
+    console.log('teste de componente - inicialização');
+  }
 }

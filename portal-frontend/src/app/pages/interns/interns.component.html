@@ -1,48 +1,24 @@
 <h1>Estagiários que passaram por aqui!</h1>
 
-<<<<<<< HEAD
-<div class="intern-card">
-  <img src="assets/murilo.png" alt="Murilo Lima Matioli"><br>
+<div *ngIf="estagiarios.length > 0">
 
-  <strong>Murilo Lima Matioli</strong>
-=======
-<div class="intern">
-  <strong>Murilo Lima Matioli</strong><br>
->>>>>>> 1c54b5d41cf844b62ebaa3c33bf22127df1307d0
-  <em>Desenvolvedor Backend</em>
+  <div *ngFor="let item of estagiarios" class="intern-card">
+    <img src="assets/murilo.png" alt="Foto de {{ item.name }}">
+    <br>
 
-  <p><strong>Bio:</strong> Gosto de mexer com backend e APIs.</p>
-  <p><strong>Período:</strong> 2023 - 2025</p>
-  <p><strong>História:</strong> "Aprendi bastante, foi muito produtivo!"</p>
-  <p><strong>Tech Stack:</strong> Node.js, MongoDB, Express</p>
+    <strong>{{ item.name }}</strong>
+    <em>{{ item.role }}</em>
 
-  <div class="social-links">
-    <a href="https://www.youtube.com/watch?v=uzEhd3Lugik&list=PLT1M213fLL7nT-Y0VDnEzMf9oqx-ENmG-" target="_blank">LinkedIn</a> |
-    <a href="https://www.youtube.com/watch?v=uzEhd3Lugik&list=PLT1M213fLL7nT-Y0VDnEzMf9oqx-ENmG-" target="_blank">GitHub</a> |
-    <a href="https://www.youtube.com/watch?v=uzEhd3Lugik&list=PLT1M213fLL7nT-Y0VDnEzMf9oqx-ENmG-" target="_blank">Instagram</a>
-  </div>
-</div>
+    <p><strong>Bio:</strong> {{ item.bio }}</p>
+    <p><strong>Período:</strong> {{ item.startDate }} - {{ item.endDate }}</p>
+    <p><strong>História:</strong> "{{ item.story }}"</p>
+    <p><strong>Tech Stack:</strong> {{ item.techStack }}</p>
 
-<<<<<<< HEAD
-<div class="intern-card">
-  <img src="assets/cairo.png" alt="Cairo da Silva"><br>
-
-  <strong>Cairo da Silva</strong>
-=======
-<div class="intern">
-  <strong>Cairo da Silva</strong><br>
->>>>>>> 1c54b5d41cf844b62ebaa3c33bf22127df1307d0
-  <em>Desenvolvedor Backend</em>
-
-  <p><strong>Bio:</strong> Gosto de mexer com backend e APIs.</p>
-  <p><strong>Período:</strong> 2023 - 2025</p>
-  <p><strong>História:</strong> "Aprendi bastante, foi muito produtivo!"</p>
-  <p><strong>Tech Stack:</strong> Node.js, MongoDB, Express</p>
-
-  <div class="social-links">
-    <a href="https://www.youtube.com/watch?v=uzEhd3Lugik&list=PLT1M213fLL7nT-Y0VDnEzMf9oqx-ENmG-" target="_blank">LinkedIn</a> |
-    <a href="https://www.youtube.com/watch?v=uzEhd3Lugik&list=PLT1M213fLL7nT-Y0VDnEzMf9oqx-ENmG-" target="_blank">GitHub</a> |
-    <a href="https://www.youtube.com/watch?v=uzEhd3Lugik&list=PLT1M213fLL7nT-Y0VDnEzMf9oqx-ENmG-" target="_blank">Instagram</a>
+    <div class="social-links">
+      <a [href]="item.social.linkedin" target="_blank">LinkedIn</a> |
+      <a [href]="item.social.github" target="_blank">GitHub</a> |
+      <a [href]="item.social.instagram" target="_blank">Instagram</a>
+    </div>
   </div>
 </div>
 
