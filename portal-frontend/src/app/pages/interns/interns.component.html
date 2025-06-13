@@ -10,7 +10,7 @@
     <em>{{ item.role }}</em>
 
     <p><strong>Bio:</strong> {{ item.bio }}</p>
-    <p><strong>Período:</strong> {{ item.startDate }} - {{ item.endDate }}</p>
+    <p><strong>Período:</strong> {{ item.startDate | date: 'dd/MM/yyyy' }} - {{ item.endDate | date: 'dd/MM/yyyy'}}</p>
     <p><strong>História:</strong> "{{ item.story }}"</p>
     <p><strong>Tech Stack:</strong> {{ item.techStack }}</p>
 
