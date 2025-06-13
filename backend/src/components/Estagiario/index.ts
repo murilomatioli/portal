@@ -23,7 +23,7 @@ export async function cadEstagiario(req: IGetId, res: Response): Promise<void> {
     const schema = Joi.object({
         name: Joi.string().min(4).required(),
         email: Joi.string().email().required(),
-        role: Joi.string().min(4).required(),
+        role: Joi.string().min(4).optional(),
         company: Joi.string().min(2).required(),
         techStack: Joi.array().items(Joi.string()).default([]),
         bio: Joi.string().optional().default('Sem relato disponível.'),

@@ -8,5 +8,5 @@ const UserRouter_1 = __importDefault(require("./UserRouter"));
 const EstagiarioRouter_1 = __importDefault(require("./EstagiarioRouter"));
 const router = express_1.default.Router();
 router.use('/users', UserRouter_1.default);
-router.use('/estagiarios/', EstagiarioRouter_1.default);
+router.use('/estagiarios', EstagiarioRouter_1.default);
 exports.default = router;
