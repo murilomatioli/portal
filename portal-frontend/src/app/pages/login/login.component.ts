@@ -17,4 +17,8 @@ export class LoginComponent {
   irInterns() {
     this.router.navigate(['/interns']);
   }
+
+  irRegister() {
+    this.router.navigate(['/register']);
+  }
 }
