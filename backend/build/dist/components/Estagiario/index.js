@@ -36,7 +36,7 @@ function cadEstagiario(req, res) {
         const schema = joi_1.default.object({
             name: joi_1.default.string().min(4).required(),
             email: joi_1.default.string().email().required(),
-            role: joi_1.default.string().min(4).required(),
+            role: joi_1.default.string().min(4).optional(),
             company: joi_1.default.string().min(2).required(),
             techStack: joi_1.default.array().items(joi_1.default.string()).default([]),
             bio: joi_1.default.string().optional().default('Sem relato disponível.'),

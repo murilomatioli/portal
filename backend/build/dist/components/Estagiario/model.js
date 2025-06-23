@@ -37,7 +37,7 @@ const mongoose_1 = __importStar(require("mongoose"));
 const EstagiarioSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    role: { type: String, required: true },
+    role: { type: String, required: false },
     company: { type: String, required: false, default: 'Independente' },
     techStack: { type: [String], required: true },
     bio: { type: String, required: false },

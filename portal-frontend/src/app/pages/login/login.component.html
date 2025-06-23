@@ -1,11 +1,13 @@
 <h1>Login</h1>
-<form>
+<form (ngSubmit)="onLogin()">
     <label>EMAIL:</label><br>
-    <input type="email"><br><br>
+    <input type="email" name="email" [(ngModel)]="loginData.email" required><br><br>
+
     <label>SENHA:</label><br>
-    <input type="password"><br><br>
+    <input type="password" name="password" [(ngModel)]="loginData.password" required><br><br>
+
     <div class="link">
-        <button (click)="irHome()">Logar</button>
+        <button type="submit">Logar</button>
     </div>
 </form>
 

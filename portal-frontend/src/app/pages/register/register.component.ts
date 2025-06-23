@@ -19,17 +19,22 @@ export class RegisterComponent {
     password: ''
   };
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService,private router: Router) {}
 
-  // evento que é ativado quando clicamos no botao
+  // evento é ativado quando clicamos no botao
   onRegister(): void {
-    console.log('Tentativa de cadastro com os seguintes dados:', this.registerData);
-    alert('Formulário enviado! Verifique o console (F12) para ver os dados capturados.');
+    this.authService.register(this.registerData).subscribe({
+      next: (response) => {
+        console.log('Cadastro realizado', response);
+        this.router.navigate(['/login']); // redireciona para a página de login após o cadastro
+      },
+      error: (err) => {
+        console.error('Fala no cadastro', err);
+      }
+    })
   }
-  irParaLogin(): void {
-    this.router.navigate(['/login']);
+
+  irParaLogin(): void{
+    this.router.navigate(['/login']); // redireciona para a página de login
   }
 }
