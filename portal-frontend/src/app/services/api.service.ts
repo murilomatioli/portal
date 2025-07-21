@@ -29,8 +29,19 @@ export class ApiService {
   constructor(private https: HttpClient) {} // lista os estagiarios
 
   public getEstagiarios(): Observable<Estagiario[]> {
-    return this.https.get<Estagiario[]>(
-      `${this.apiUrl}/estagiarios/getEstagiario`
-    ); //requisição para a rota de estagiarios do back
+    return this.https.get<Estagiario[]>(`${this.apiUrl}/interns`); //requisição para a rota de estagiarios do back
+  }
+
+  public cadastrarEstagiario(data: FormData): Observable<any> {
+    return this.https.post<any>(`${this.apiUrl}/interns`, data); //chama a rota que está no back
+  }
+  public updateStory(internId: string, story: string): Observable<any> {
+    return this.https.put(`${this.apiUrl}/interns/${internId}/story`, {
+      story,
+    });
+  }
+
+  public deleteStory(internId: string): Observable<any> {
+    return this.https.delete(`${this.apiUrl}/interns/${internId}/story`);
   }
 }

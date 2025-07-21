@@ -1,3 +1,6 @@
+<div *ngIf="isAdmin()" class="admin-actions">
+  <button (click)="goToRegisterPage()">Cadastrar Novo Estagiário</button>
+</div>
 <h1>Estagiários que passaram por aqui!</h1>
 
 <div *ngIf="estagiarios.length > 0">

@@ -90,7 +90,7 @@
             "type": "string"
           },
           {
-            "name": "x-access-token",
+            "name": "authorization",
             "in": "header",
             "type": "string"
           }
@@ -132,7 +132,7 @@
             "type": "string"
           },
           {
-            "name": "x-access-token",
+            "name": "authorization",
             "in": "header",
             "type": "string"
           }
@@ -172,7 +172,7 @@
             "type": "string"
           },
           {
-            "name": "x-access-token",
+            "name": "authorization",
             "in": "header",
             "type": "string"
           },
@@ -220,7 +220,7 @@
         "description": "Retorna uma lista de todos os usuários cadastrados no sistema.",
         "parameters": [
           {
-            "name": "x-access-token",
+            "name": "authorization",
             "in": "header",
             "type": "string"
           }
@@ -244,7 +244,25 @@
         }
       }
     },
-    "/estagiarios/cadEstagiario": {
+    "/estagiarios/": {
+      "get": {
+        "tags": [
+          "Estagiários"
+        ],
+        "summary": "Lista todos os estagiários",
+        "description": "Retorna uma lista de todos os estagiários que foram cadastrados no sistema.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
       "post": {
         "tags": [
           "Estagiários"
@@ -253,7 +271,7 @@
         "description": "Cria um novo estagiário com os dados fornecidos no corpo da requisição. Retorna a confirmação de criado ou um erro em caso de falha.",
         "parameters": [
           {
-            "name": "x-access-token",
+            "name": "authorization",
             "in": "header",
             "type": "string"
           },
@@ -277,26 +295,6 @@
           },
           "403": {
             "description": "Forbidden"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/estagiarios/getEstagiario": {
-      "get": {
-        "tags": [
-          "Estagiários"
-        ],
-        "summary": "Lista todos os estagiários",
-        "description": "Retorna uma lista de todos os estagiários que foram cadastrados no sistema.",
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"

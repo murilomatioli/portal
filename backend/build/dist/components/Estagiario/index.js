@@ -27,7 +27,8 @@ function cadEstagiario(req, res) {
                 schema: { $ref: '#/definitions/createEstagiario' }
             }
         */
-        if (req.user.role != 'admin') {
+        const user = req.user;
+        if (user.role != 'admin') {
             res.status(401).json({
                 message: 'Você não possui permissão para executar essa ação',
             });
@@ -96,7 +97,7 @@ function getEstagiarios(req, res) {
                 });
                 return;
             }
-            res.status(201).json({ estagiarios });
+            res.status(200).json({ estagiarios });
             return;
         }
         catch (error) {

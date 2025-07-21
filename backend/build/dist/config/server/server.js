@@ -50,10 +50,11 @@ const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_json_1 = __importDefault(require("../docs/swagger.json"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const routes_1 = __importDefault(require("../../routes"));
 const connection_1 = __importDefault(require("../connection/connection"));
 const dotenv = __importStar(require("dotenv"));
 const enviroment_1 = __importDefault(require("../env/enviroment"));
+const UserRouter_1 = __importDefault(require("../../routes/UserRouter"));
+const EstagiarioRouter_1 = __importDefault(require("../../routes/EstagiarioRouter"));
 dotenv.config();
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
@@ -61,11 +62,12 @@ const corsOptions = {
     origin: enviroment_1.default.FRONTEND_URL,
 };
 app.use((0, cors_1.default)(corsOptions));
+app.use('/users', UserRouter_1.default);
+app.use('/interns', EstagiarioRouter_1.default);
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield (0, connection_1.default)();
-            app.use(routes_1.default);
             //prettier-ignore
             if (process.env.NODE_ENV === 'development') {
                 app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_json_1.default));
