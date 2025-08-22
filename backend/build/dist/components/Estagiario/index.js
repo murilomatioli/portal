@@ -14,6 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cadEstagiario = cadEstagiario;
 exports.getEstagiarios = getEstagiarios;
+exports.updateEstagiario = updateEstagiario;
+exports.deleteEstagiario = deleteEstagiario;
 const model_1 = __importDefault(require("./model"));
 const joi_1 = __importDefault(require("joi"));
 function cadEstagiario(req, res) {
@@ -41,6 +43,7 @@ function cadEstagiario(req, res) {
             company: joi_1.default.string().min(2).required(),
             techStack: joi_1.default.array().items(joi_1.default.string()).default([]),
             bio: joi_1.default.string().optional().default('Sem relato disponível.'),
+            story: joi_1.default.string().optional().default('Sem relato disponível.'),
             birth: joi_1.default.date().optional(),
             startDate: joi_1.default.date().required(),
             endDate: joi_1.default.date().optional(),
@@ -56,7 +59,7 @@ function cadEstagiario(req, res) {
     
         */
         try {
-            const { name, email, role, company, techStack, bio, birth, startDate, endDate, social, } = req.body;
+            const { name, email, role, company, techStack, bio, story, birth, startDate, endDate, social, } = req.body;
             const { error, value } = schema.validate(req.body);
             const findEmail = yield model_1.default.findOne({ email });
             if (findEmail) {
@@ -102,6 +105,55 @@ function getEstagiarios(req, res) {
         }
         catch (error) {
             res.status(500).json({ error });
+        }
+    });
+}
+function updateEstagiario(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        // #swagger.tags = ['Estagiarios']
+        // #swagger.summary = 'Atualiza as informações de uma estagiario'
+        const user = req.user;
+        const internId = req.params.id;
+        const updates = req.body; //pega todos os dados que serao atualizados
+        try {
+            if (user.role !== 'admin') {
+                res.status(403).json({ message: 'Acesso negado, precisa de um administrador' });
+                return;
+            }
+            const updatedIntern = yield model_1.default.findByIdAndUpdate(internId, updates, // Aplica todas as atualizações
+            { new: true, runValidators: true } // Retorna o documento atualizado
+            );
+            if (!updatedIntern) {
+                res.status(404).json({ message: 'Esse estagiario nao foi encontrado' });
+                return;
+            }
+            res.status(200).json({ message: 'Perfil atualizado' });
+        }
+        catch (error) {
+            res.status(500).json({ error: 'Erro interno' });
+        }
+    });
+}
+function deleteEstagiario(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        // #swagger.tags = ['Estagiarios']
+        // #swagger.summary = 'Deleta o perfil de um estagiario'
+        const user = req.user;
+        const internId = req.params.id;
+        try {
+            if (user.role !== 'admin') {
+                res.status(403).json({ message: 'Acesso negado. Apenas administradores podem executar esta ação.' });
+                return;
+            }
+            const deletedIntern = yield model_1.default.findByIdAndDelete(internId);
+            if (!deletedIntern) {
+                res.status(404).json({ message: 'Estagiário não encontrado' });
+                return;
+            }
+            res.status(200).json({ message: `Perfil de ${deletedIntern.name} deletado com sucesso!` });
+        }
+        catch (error) {
+            res.status(500).json({ error: 'Erro interno' });
         }
     });
 }

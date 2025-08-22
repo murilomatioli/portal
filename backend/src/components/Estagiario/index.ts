@@ -31,6 +31,7 @@ export async function cadEstagiario(
         company: Joi.string().min(2).required(),
         techStack: Joi.array().items(Joi.string()).default([]),
         bio: Joi.string().optional().default('Sem relato disponível.'),
+        story: Joi.string().optional().default('Sem relato disponível.'),
         birth: Joi.date().optional(),
         startDate: Joi.date().required(),
         endDate: Joi.date().optional(),
@@ -53,6 +54,7 @@ export async function cadEstagiario(
             company,
             techStack,
             bio,
+            story,
             birth,
             startDate,
             endDate,
@@ -109,5 +111,60 @@ export async function getEstagiarios(
         return;
     } catch (error) {
         res.status(500).json({ error });
+    }
+}
+
+export async function updateEstagiario(req: Request, res: Response): Promise<void>{
+    // #swagger.tags = ['Estagiarios']
+    // #swagger.summary = 'Atualiza as informações de uma estagiario'
+    const user = (req as IGetId).user;
+    const internId = req.params.id;
+    const updates = req.body; //pega todos os dados que serao atualizados
+
+    try{
+        if(user.role !== 'admin'){
+            res.status(403).json({message: 'Acesso negado, precisa de um administrador'});
+            return;
+        }
+
+        const updatedIntern = await Estagiario.findByIdAndUpdate(
+            internId,
+            updates, // Aplica todas as atualizações
+            {new: true, runValidators: true} // Retorna o documento atualizado
+        );
+
+        if(!updatedIntern) {
+            res.status(404).json({message: 'Esse estagiario nao foi encontrado'});
+            return;
+        }
+
+        res.status(200).json({message: 'Perfil atualizado'});
+    } catch (error){
+        res.status(500).json({error: 'Erro interno'});
+    }
+}
+
+export async function deleteEstagiario(req: Request, res: Response): Promise<void> {
+    // #swagger.tags = ['Estagiarios']
+    // #swagger.summary = 'Deleta o perfil de um estagiario'
+    const user = (req as IGetId).user;
+    const internId = req.params.id;
+
+    try {
+        if (user.role !== 'admin') {
+            res.status(403).json({ message: 'Acesso negado. Apenas administradores podem executar esta ação.' });
+            return;
+        }
+
+        const deletedIntern = await Estagiario.findByIdAndDelete(internId);
+
+        if (!deletedIntern) {
+            res.status(404).json({ message: 'Estagiário não encontrado' });
+            return;
+        }
+
+        res.status(200).json({ message: `Perfil de ${deletedIntern.name} deletado com sucesso!` });
+    } catch (error) {
+        res.status(500).json({ error: 'Erro interno' });
     }
 }

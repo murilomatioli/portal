@@ -52,10 +52,38 @@ export class InternsComponent implements OnInit {
   }
 
   editStory(estagiario: Estagiario): void {
-    alert('Funcionalidade de edição de história ainda não implementada.');
+    const newStory = prompt('Digite o novo depoimento:', estagiario.story || '');
+
+    if(newStory !== null){ //impede que o usuario clique em cancelar ate editar
+      const internId = (estagiario as any)._id || estagiario.id;
+
+      this.apiService.updateStory(internId, newStory).subscribe({
+        next: () => {
+          alert('Depoimento atualizado');
+          this.loadInterns(); //recarrega a lista 
+        },
+        error: (err) => {
+          console.error('Erro ao editar o depoimento', err);
+          alert(`Falha ao atualizar: ${err.error.message || 'Erro'}`)
+        }
+      })
+    }
   }
 
   deleteStory(estagiario: Estagiario): void {
-    alert('Funcionalidade de exclusão de história ainda não implementada.');
+    if (confirm(`Tem certeza que deseja deletar o depoimento de ${estagiario.name}?`)) {
+      const internId = (estagiario as any)._id || estagiario.id;
+
+      this.apiService.deleteStory(internId).subscribe({
+        next: () => {
+          alert('Depoimento deletado com sucesso!');
+          this.loadInterns(); // recarrega a lista
+        },
+        error: (err) => {
+          console.error('Erro ao deletar depoimento', err);
+          alert(`Falha ao deletar: ${err.error.message || 'Erro'}`);
+        }
+      });
+    }
   }
 }

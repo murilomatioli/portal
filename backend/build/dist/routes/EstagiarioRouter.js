@@ -9,4 +9,9 @@ const router = (0, express_1.Router)();
 router.get('/', Estagiario_1.getEstagiarios);
 // @ts-ignore
 router.post('/', AuthMiddleware_1.authenticateJWT, Estagiario_1.cadEstagiario);
+// @ts-ignore
+router.put('/:id/story', AuthMiddleware_1.authenticateJWT, Estagiario_1.updateEstagiario);
+// @ts-ignore
+router.delete('/:id/story', AuthMiddleware_1.authenticateJWT, Estagiario_1.deleteEstagiario);
+//configurando o multer
 exports.default = router;
