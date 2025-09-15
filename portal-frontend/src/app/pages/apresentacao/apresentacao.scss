@@ -1,0 +1,158 @@
+// ========================================
+// APRESENTAÇÃO - ESTILO ESSENCIAL
+// ========================================
+
+// Variáveis de Cor Principais
+:root {
+  --cor-primaria: #2563eb;
+  --cor-fundo-claro: #f8fafc;
+  --cor-texto-principal: #1e293b;
+  --cor-texto-secundario: #64748b;
+  --gradiente-principal: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+// Estilos Base e Reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif; // Fonte limpa e moderna
+  line-height: 1.6;
+  color: var(--cor-texto-principal);
+  background: #fff;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.abertura {
+  min-height: 90vh;
+  background: var(--gradiente-principal); // Um gradiente simples, sem animações
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding: 2rem;
+}
+
+.abertura-conteudo h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem); // Controla o tamanho da fonte em telas diferentes
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.abertura-conteudo .descricao {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.9; // Leve transparência para suavizar
+}
+
+.abertura-conteudo .btn-acesso {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 50px; // Bordas arredondadas
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+
+}
+
+// --- Seções de Conteúdo ---
+.secao-conteudo {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.secao-conteudo.bg-claro {
+  background: var(--cor-fundo-claro);
+}
+
+.secao-conteudo h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.secao-conteudo p {
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  color: var(--cor-texto-secundario);
+}
+
+// --- Grid de Colaboradores e Tecnologias ---
+.grid-colaboradores,
+.logos-tecnicos {
+  display: flex; // Flexbox é ótimo para alinhamento e distribuição
+  justify-content: center;
+  flex-wrap: wrap; // Permite que os itens quebrem para a próxima linha
+  gap: 2rem; // Espaçamento entre os itens
+  margin-top: 3rem;
+}
+
+.card-perfil {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); // Sombra sutil
+  width: 280px;
+  transition: all 0.3s ease;
+  color: black;
+  &:hover {
+    transform: translateY(-5px); // Efeito de elevação sutil
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+
+}
+
+// Estilo direto na imagem do logo, sem placeholders
+.logos-tecnicos img {
+  height: 50px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// --- Rodapé ---
+.rodape {
+  background: #1e293b;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+// --- Responsividade Essencial ---
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .secao-conteudo {
+    padding: 3rem 0;
+  }
+  
+  .abertura-conteudo h1 {
+    font-size: 2.2rem;
+  }
+  
+  .abertura-conteudo .descricao {
+    font-size: 1rem;
+  }
+}
