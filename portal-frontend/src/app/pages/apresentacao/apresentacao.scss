@@ -1,158 +1,239 @@
-// ========================================
-// APRESENTAÇÃO - ESTILO ESSENCIAL
-// ========================================
-
-// Variáveis de Cor Principais
-:root {
-  --cor-primaria: #2563eb;
-  --cor-fundo-claro: #f8fafc;
-  --cor-texto-principal: #1e293b;
-  --cor-texto-secundario: #64748b;
-  --gradiente-principal: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-// Estilos Base e Reset
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: 'Inter', sans-serif; // Fonte limpa e moderna
-  line-height: 1.6;
-  color: var(--cor-texto-principal);
-  background: #fff;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
 }
 
+/* Header */
+.header-navegacao {
+    background: #2c3e50;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #3498db;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.btn-outline {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.btn-outline:hover {
+    background: white;
+    color: #2c3e50;
+}
+
+.btn-primary {
+    background: #3498db;
+    color: white;
+    border: 2px solid #3498db;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+    border-color: #2980b9;
+}
+
+/* Container */
 .container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
+/* Abertura */
 .abertura {
-  min-height: 90vh;
-  background: var(--gradiente-principal); // Um gradiente simples, sem animações
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: white;
-  padding: 2rem;
+    background: #34495e;
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
 }
 
 .abertura-conteudo h1 {
-  font-size: clamp(2.5rem, 5vw, 3.5rem); // Controla o tamanho da fonte em telas diferentes
-  font-weight: 700;
-  margin-bottom: 1rem;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
 }
 
-.abertura-conteudo .descricao {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  opacity: 0.9; // Leve transparência para suavizar
+.descricao {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
 }
 
-.abertura-conteudo .btn-acesso {
-  background: transparent;
-  color: white;
-  border: 2px solid white;
-  padding: 0.8rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 50px; // Bordas arredondadas
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-
-}
-
-// --- Seções de Conteúdo ---
+/* Seções */
 .secao-conteudo {
-  padding: 4rem 0;
-  text-align: center;
+    padding: 3rem 0;
 }
 
-.secao-conteudo.bg-claro {
-  background: var(--cor-fundo-claro);
+.bg-claro {
+    background-color: #f8f9fa;
 }
 
 .secao-conteudo h2 {
-  font-size: 2.2rem;
-  margin-bottom: 1rem;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #2c3e50;
 }
 
 .secao-conteudo p {
-  font-size: 1.1rem;
-  max-width: 700px;
-  margin: 0 auto 2rem;
-  color: var(--cor-texto-secundario);
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: center;
 }
 
-// --- Grid de Colaboradores e Tecnologias ---
-.grid-colaboradores,
-.logos-tecnicos {
-  display: flex; // Flexbox é ótimo para alinhamento e distribuição
-  justify-content: center;
-  flex-wrap: wrap; // Permite que os itens quebrem para a próxima linha
-  gap: 2rem; // Espaçamento entre os itens
-  margin-top: 3rem;
+/* Grid Colaboradores */
+.grid-colaboradores {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
 .card-perfil {
-  background: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); // Sombra sutil
-  width: 280px;
-  transition: all 0.3s ease;
-  color: black;
-  &:hover {
-    transform: translateY(-5px); // Efeito de elevação sutil
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  }
-
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
 }
 
-// Estilo direto na imagem do logo, sem placeholders
-.logos-tecnicos img {
-  height: 50px;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-
-  &:hover {
-    opacity: 1;
-  }
+.card-perfil:hover {
+    transform: translateY(-5px);
 }
 
-// --- Rodapé ---
-.rodape {
-  background: #1e293b;
-  color: rgba(255, 255, 255, 0.8);
-  padding: 2rem 0;
-  text-align: center;
+.card-perfil strong {
+    font-size: 1.2rem;
+    color: #2c3e50;
+}
+.profile-name {
   font-size: 0.9rem;
+  color: #7f8c8d;
+  margin: 0;
 }
 
-// --- Responsividade Essencial ---
-@media (max-width: 768px) {
-  .container {
-    padding: 0 1rem;
-  }
+.profile-role {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 0;
+}
 
-  .secao-conteudo {
-    padding: 3rem 0;
-  }
-  
-  .abertura-conteudo h1 {
-    font-size: 2.2rem;
-  }
-  
-  .abertura-conteudo .descricao {
-    font-size: 1rem;
-  }
+/* Logos Técnicos */
+.logos-tecnicos {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.logos-tecnicos p {
+    background: #3498db;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background 0.3s ease;
+}
+
+.logos-tecnicos p:hover {
+    background: #2980b9;
+}
+
+.container h2{
+  color: white;
+}
+
+/* Rodapé */
+.rodape {
+    background: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 0 1rem;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .nav-menu {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav-buttons {
+        gap: 0.5rem;
+    }
+    
+    .abertura-conteudo h1 {
+        font-size: 2rem;
+    }
+    
+    .descricao {
+        font-size: 1rem;
+    }
+    
+    .logos-tecnicos {
+        gap: 1rem;
+    }
 }
