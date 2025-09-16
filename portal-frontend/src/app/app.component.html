@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<header class="header-interno" *ngIf="showHeader">
+  <div class="header-interno-container">
+    <a routerLink="/" class="btn-tela-inicial"> < Voltar para a Tela Inicial</a>
+  </div>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
