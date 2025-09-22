@@ -145,15 +145,16 @@ body {
 
 .card-perfil {
     background: white;
-    padding: 32px;
+    padding: 22px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1); //sombra no elemento
     text-align: center;
     transition: transform 0.3s ease;
+    margin: 30px;
 }
 
 .card-perfil:hover {
-    transform: translateY(-5px);
+    transform: translateY(-15px);
 }
 
 .card-perfil strong {
@@ -180,6 +181,11 @@ body {
     gap: 32px;
     margin-top: 32px;
     flex-wrap: wrap;
+    
+}
+
+.logos img{
+    transition: transform 0.3s ease;
 }
 
 .logos p {
@@ -193,6 +199,10 @@ body {
 
 .logos p:hover {
     background: #2980b9;
+}
+
+.logos img:hover{
+    transform: translateY(-15px);
 }
 
 .container h2{
